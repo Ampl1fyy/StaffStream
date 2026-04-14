@@ -1,9 +1,9 @@
 -- ─────────────────────────────────────────
--- StaffStream — Business Seed Data
+-- TrabaHost — Business Seed Data
 -- Run in Supabase SQL Editor
 -- ─────────────────────────────────────────
 -- Creates:
---   • 1 business owner account  (email: business@staffstream.ph / password: Password123!)
+--   • 1 business owner account  (email: business@trabahost.ph / password: Password123!)
 --   • 1 business profile (SM Supermarket QC)
 --   • 6 shifts in various states
 --   • 3 worker accounts with applications
@@ -70,7 +70,7 @@ BEGIN
   ) VALUES (
     biz_owner_id,
     '00000000-0000-0000-0000-000000000000',
-    'business@staffstream.ph',
+    'business@trabahost.ph',
     crypt('Password123!', gen_salt('bf')),
     now(), now(), now(),
     '{"provider":"email","providers":["email"]}',
@@ -86,7 +86,7 @@ BEGIN
   ) VALUES (
     worker1_id,
     '00000000-0000-0000-0000-000000000000',
-    'juan@staffstream.ph',
+    'juan@trabahost.ph',
     crypt('Password123!', gen_salt('bf')),
     now(), now(), now(),
     '{"provider":"email","providers":["email"]}',
@@ -102,7 +102,7 @@ BEGIN
   ) VALUES (
     worker2_id,
     '00000000-0000-0000-0000-000000000000',
-    'ana@staffstream.ph',
+    'ana@trabahost.ph',
     crypt('Password123!', gen_salt('bf')),
     now(), now(), now(),
     '{"provider":"email","providers":["email"]}',
@@ -118,7 +118,7 @@ BEGIN
   ) VALUES (
     worker3_id,
     '00000000-0000-0000-0000-000000000000',
-    'pedro@staffstream.ph',
+    'pedro@trabahost.ph',
     crypt('Password123!', gen_salt('bf')),
     now(), now(), now(),
     '{"provider":"email","providers":["email"]}',
@@ -396,7 +396,7 @@ BEGIN
   ) VALUES (
     bul_owner_id,
     '00000000-0000-0000-0000-000000000000',
-    'bulacan@staffstream.ph',
+    'bulacan@trabahost.ph',
     crypt('Password123!', gen_salt('bf')),
     now(), now(), now(),
     '{"provider":"email","providers":["email"]}',
@@ -481,16 +481,16 @@ BEGIN
   RAISE NOTICE 'Seed complete!';
   RAISE NOTICE '';
   RAISE NOTICE 'Business login:';
-  RAISE NOTICE '  Email:    business@staffstream.ph';
+  RAISE NOTICE '  Email:    business@trabahost.ph';
   RAISE NOTICE '  Password: Password123!';
   RAISE NOTICE '';
   RAISE NOTICE 'Worker logins (all use Password123!):';
-  RAISE NOTICE '  juan@staffstream.ph';
-  RAISE NOTICE '  ana@staffstream.ph';
-  RAISE NOTICE '  pedro@staffstream.ph';
+  RAISE NOTICE '  juan@trabahost.ph';
+  RAISE NOTICE '  ana@trabahost.ph';
+  RAISE NOTICE '  pedro@trabahost.ph';
   RAISE NOTICE '';
   RAISE NOTICE 'Bulacan business login:';
-  RAISE NOTICE '  Email:    bulacan@staffstream.ph';
+  RAISE NOTICE '  Email:    bulacan@trabahost.ph';
   RAISE NOTICE '  Password: Password123!';
   RAISE NOTICE '  Location: Malis, Guiguinto, Bulacan';
   RAISE NOTICE '─────────────────────────────────────────';

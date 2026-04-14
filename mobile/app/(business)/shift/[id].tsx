@@ -75,7 +75,7 @@ export default function ManageShiftScreen() {
               amount: wages.gross,
               method: worker.e_wallet_provider,
               workerWalletNumber: worker.e_wallet_number,
-              description: `StaffStream: ${shift.title}`,
+              description: `TrabaHost: ${shift.title}`,
             });
             setPaying(null);
             if (result.success) {

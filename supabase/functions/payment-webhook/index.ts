@@ -1,5 +1,5 @@
 /**
- * StaffStream Payment Edge Function
+ * TrabaHost Payment Edge Function
  *
  * Handles payment initiation and webhook callbacks for:
  * - Maya (PayMaya): https://developers.maya.ph/

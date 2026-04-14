@@ -1,5 +1,5 @@
 /**
- * StaffStream Matching Engine Edge Function
+ * TrabaHost Matching Engine Edge Function
  *
  * Triggered after a shift is created.
  * Finds eligible workers within radius and sends push notifications.

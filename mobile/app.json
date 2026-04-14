@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "StaffStream",
-    "slug": "staffstream",
+    "name": "TrabaHost",
+    "slug": "trabahost",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "staffstream",
+    "scheme": "trabahost",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -14,11 +14,11 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.staffstream.app",
+      "bundleIdentifier": "com.trabahost.app",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "StaffStream needs your location to find nearby shifts.",
-        "NSLocationAlwaysUsageDescription": "StaffStream uses your location to match you with nearby shifts.",
-        "NSCameraUsageDescription": "StaffStream needs camera access to scan QR codes for shift check-in."
+        "NSLocationWhenInUseUsageDescription": "TrabaHost needs your location to find nearby shifts.",
+        "NSLocationAlwaysUsageDescription": "TrabaHost uses your location to match you with nearby shifts.",
+        "NSCameraUsageDescription": "TrabaHost needs camera access to scan QR codes for shift check-in."
       }
     },
     "android": {
@@ -26,7 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#4F46E5"
       },
-      "package": "com.staffstream.app",
+      "package": "com.trabahost.app",
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
@@ -54,7 +54,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow StaffStream to access your camera for QR check-in."
+          "cameraPermission": "Allow TrabaHost to access your camera for QR check-in."
         }
       ],
       [

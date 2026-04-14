@@ -1,5 +1,5 @@
 ═══════════════════════════════════════════════════════════════
-  StaffStream — First-Time Setup Guide
+  TrabaHost — First-Time Setup Guide
 ═══════════════════════════════════════════════════════════════
 
 PREREQUISITES
@@ -16,7 +16,7 @@ STEP 1: CLONE & INSTALL
 ═══════════════════════════════════════════════════════════════
 
   git clone <your-repo-url>
-  cd staffstream
+  cd trabahost
   yarn install
 
   # Generate placeholder assets for the app
@@ -55,7 +55,7 @@ STEP 3: FIREBASE SETUP (Push Notifications)
 1. Create a project at https://console.firebase.google.com
 
 2. Add an Android app:
-   - Package name: com.staffstream.app
+   - Package name: com.trabahost.app
    - Download google-services.json
    - Place it at: mobile/google-services.json  ⚠️ do not commit
 
@@ -217,7 +217,7 @@ CREATE YOUR FIRST ADMIN ACCOUNT
 PROJECT STRUCTURE
 ═══════════════════════════════════════════════════════════════
 
-  staffstream/
+  trabahost/
   ├── mobile/                   Expo React Native app
   │   ├── app/
   │   │   ├── (auth)/           Login & Register screens

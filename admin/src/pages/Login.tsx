@@ -19,7 +19,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-primary-600 mb-1">StaffStream</h1>
+        <h1 className="text-2xl font-bold text-primary-600 mb-1">TrabaHost</h1>
         <p className="text-gray-500 text-sm mb-6">Admin Panel</p>
 
         <form onSubmit={handleLogin} className="space-y-4">

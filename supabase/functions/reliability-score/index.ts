@@ -1,5 +1,5 @@
 /**
- * StaffStream Reliability Score Edge Function
+ * TrabaHost Reliability Score Edge Function
  *
  * Recalculates a worker's reliability score after each completed shift.
  * Score is based on: on-time check-ins, shift completion rate, ratings.

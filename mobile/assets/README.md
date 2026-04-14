@@ -1,4 +1,4 @@
-# StaffStream Mobile Assets
+# TrabaHost Mobile Assets
 
 This folder contains app icons and splash screens for the Expo mobile app.
 

@@ -22,7 +22,7 @@ export default function Layout() {
       {/* Sidebar */}
       <aside className="w-60 bg-white border-r border-gray-200 flex flex-col">
         <div className="px-6 py-5 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-primary-600">StaffStream</h1>
+          <h1 className="text-xl font-bold text-primary-600">TrabaHost</h1>
           <p className="text-xs text-gray-400 mt-0.5">Admin Panel</p>
         </div>
 

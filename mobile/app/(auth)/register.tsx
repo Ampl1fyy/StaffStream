@@ -41,7 +41,7 @@ export default function RegisterScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View className="flex-1 px-6 pt-16 pb-8">
           <Text className="text-2xl font-semibold text-gray-800 mb-2">Create account</Text>
-          <Text className="text-gray-500 mb-8">Join StaffStream today.</Text>
+          <Text className="text-gray-500 mb-8">Join TrabaHost today.</Text>
 
           {/* Role selector */}
           <Text className="text-sm font-medium text-gray-700 mb-2">I am a...</Text>

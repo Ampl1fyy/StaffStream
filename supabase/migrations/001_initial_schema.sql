@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────
--- StaffStream Initial Schema
+-- TrabaHost Initial Schema
 -- ─────────────────────────────────────────
 
 -- Enable PostGIS for geolocation queries

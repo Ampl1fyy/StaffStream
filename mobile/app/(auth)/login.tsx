@@ -36,7 +36,7 @@ export default function LoginScreen() {
         <View className="flex-1 px-6 pt-20 pb-8">
           {/* Header */}
           <View className="mb-10">
-            <Text className="text-4xl font-bold text-primary-600">StaffStream</Text>
+            <Text className="text-4xl font-bold text-primary-600">TrabaHost</Text>
             <Text className="text-gray-500 mt-2 text-base">On-demand shifts, instant pay.</Text>
           </View>
 
