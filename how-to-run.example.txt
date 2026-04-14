@@ -1,0 +1,278 @@
+═══════════════════════════════════════════════════════════════
+  StaffStream — First-Time Setup Guide
+═══════════════════════════════════════════════════════════════
+
+PREREQUISITES
+─────────────
+- Node.js 18+         https://nodejs.org
+- Yarn 1.x            npm install -g yarn
+- Expo CLI            npm install -g expo-cli
+- Supabase CLI        npm install -g supabase
+- Git
+
+
+═══════════════════════════════════════════════════════════════
+STEP 1: CLONE & INSTALL
+═══════════════════════════════════════════════════════════════
+
+  git clone <your-repo-url>
+  cd staffstream
+  yarn install
+
+  # Generate placeholder assets for the app
+  node scripts/generate-assets.js
+
+
+═══════════════════════════════════════════════════════════════
+STEP 2: SUPABASE SETUP
+═══════════════════════════════════════════════════════════════
+
+1. Create a free project at https://supabase.com
+
+2. Run the database migrations:
+   a. Open your Supabase project → SQL Editor
+   b. Paste and run: supabase/migrations/001_initial_schema.sql
+   c. Paste and run: supabase/migrations/002_helpers.sql
+
+   (Optional seed data)
+   d. Paste and run: supabase/migrations/003_seed_business.sql
+
+3. Enable Google Auth (optional):
+   Supabase Dashboard → Authentication → Providers → Google
+   Add your Google OAuth credentials
+
+4. Copy your project keys:
+   Supabase Dashboard → Settings → API
+   - Project URL       → SUPABASE_URL
+   - anon/public key   → SUPABASE_ANON_KEY
+   - service_role key  → SUPABASE_SERVICE_ROLE_KEY  ⚠️ keep secret
+
+
+═══════════════════════════════════════════════════════════════
+STEP 3: FIREBASE SETUP (Push Notifications)
+═══════════════════════════════════════════════════════════════
+
+1. Create a project at https://console.firebase.google.com
+
+2. Add an Android app:
+   - Package name: com.staffstream.app
+   - Download google-services.json
+   - Place it at: mobile/google-services.json  ⚠️ do not commit
+
+3. Get your Firebase Service Account credentials:
+   Firebase Console → Project Settings → Service Accounts
+   - Generate new private key
+   - Download the JSON file (firebase-adminsdk-xxxxx.json)  ⚠️ do not commit
+   - Use these values in Supabase secrets:
+     • FIREBASE_PROJECT_ID
+     • FIREBASE_CLIENT_EMAIL
+     • FIREBASE_PRIVATE_KEY
+
+   In Supabase Edge Functions, the notification sender uses FCM HTTP v1
+   and service account credentials instead of the legacy server key.
+
+
+═══════════════════════════════════════════════════════════════
+STEP 4: GOOGLE MAPS API
+═══════════════════════════════════════════════════════════════
+
+1. Go to https://console.cloud.google.com
+2. Create/select a project
+3. Enable:
+   - Maps SDK for Android
+   - Maps SDK for iOS
+   - Geocoding API
+4. Create an API key → GOOGLE_MAPS_API_KEY
+
+
+═══════════════════════════════════════════════════════════════
+STEP 5: PAYMENT SETUP
+═══════════════════════════════════════════════════════════════
+
+── Maya (PayMaya) ──────────────────────────────────────────
+1. Sign up at https://developers.maya.ph
+2. Create a sandbox account
+3. Get your keys from Dashboard → API Keys:
+   - Public key  → MAYA_PUBLIC_KEY
+   - Secret key  → MAYA_SECRET_KEY
+4. Set MAYA_BASE_URL=https://pg-sandbox.maya.ph for testing
+   Change to https://pg.maya.ph for production
+
+── GCash via PayMongo ──────────────────────────────────────
+1. Sign up at https://dashboard.paymongo.com
+2. Get keys from Dashboard → Developers → API Keys:
+   - Public key  → PAYMONGO_PUBLIC_KEY
+   - Secret key  → PAYMONGO_SECRET_KEY
+3. Test using sandbox keys (prefix: pk_test_ / sk_test_)
+
+
+═══════════════════════════════════════════════════════════════
+STEP 6: CONFIGURE ENVIRONMENT FILES
+═══════════════════════════════════════════════════════════════
+
+Root (used by Edge Functions deployed to Supabase):
+  cp .env.example .env
+  # Fill in all values
+
+Mobile app:
+  cp mobile/.env.example mobile/.env
+  # Fill in:
+  EXPO_PUBLIC_SUPABASE_URL=
+  EXPO_PUBLIC_SUPABASE_ANON_KEY=
+  EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=
+
+Admin dashboard:
+  cp admin/.env.example admin/.env.local
+  # Fill in:
+  VITE_SUPABASE_URL=
+  VITE_SUPABASE_SERVICE_ROLE_KEY=
+
+
+═══════════════════════════════════════════════════════════════
+STEP 7: DEPLOY SUPABASE EDGE FUNCTIONS
+═══════════════════════════════════════════════════════════════
+
+  supabase login
+  supabase link --project-ref <your-project-ref>
+
+  # Set secrets for Edge Functions
+  supabase secrets set MAYA_BASE_URL=https://pg-sandbox.maya.ph
+  supabase secrets set MAYA_SECRET_KEY=<your-maya-secret-key>
+  supabase secrets set PAYMONGO_SECRET_KEY=<your-paymongo-secret-key>
+  supabase secrets set FIREBASE_PROJECT_ID=<your-firebase-project-id>
+  supabase secrets set FIREBASE_CLIENT_EMAIL=<your-firebase-client-email>
+  supabase secrets set FIREBASE_PRIVATE_KEY="<your-firebase-private-key>"
+  supabase secrets set APP_URL=http://localhost:19006
+
+  # Deploy functions
+  supabase functions deploy payment-webhook
+  supabase functions deploy matching-engine
+  supabase functions deploy reliability-score
+
+Set up Database Webhooks (Supabase Dashboard → Database → Webhooks):
+  • Trigger: shifts INSERT → URL: .../functions/v1/matching-engine
+  • Trigger: applications UPDATE (status = approved/withdrawn)
+    → URL: .../functions/v1/reliability-score
+
+
+═══════════════════════════════════════════════════════════════
+STEP 8: RUN THE MOBILE APP
+═══════════════════════════════════════════════════════════════
+
+  cd mobile
+  yarn start
+
+  Then press:
+  - a  →  Open in Android emulator
+  - i  →  Open in iOS simulator (Mac only)
+  - Scan QR code with Expo Go app on your phone
+
+  ⚠️  Asset Files: Placeholder assets (icon.png, splash.png) were generated
+      in STEP 1. Replace them with your branded assets in mobile/assets/
+      before release. See mobile/assets/README.md for guidelines.
+
+
+═══════════════════════════════════════════════════════════════
+STEP 9: RUN THE ADMIN DASHBOARD
+═══════════════════════════════════════════════════════════════
+
+  cd admin
+  yarn dev
+
+  Open http://localhost:5173 in your browser
+  Sign in with an admin account (set role to 'admin' in Supabase)
+
+
+═══════════════════════════════════════════════════════════════
+STEP 10: DEPLOY ADMIN TO VERCEL (optional)
+═══════════════════════════════════════════════════════════════
+
+  npm install -g vercel
+  cd admin
+  vercel
+
+  Set environment variables in Vercel dashboard:
+  - VITE_SUPABASE_URL
+  - VITE_SUPABASE_SERVICE_ROLE_KEY
+
+  ⚠️  IMPORTANT: Never expose SUPABASE_SERVICE_ROLE_KEY
+      in the mobile app or any public-facing client.
+
+
+═══════════════════════════════════════════════════════════════
+CREATE YOUR FIRST ADMIN ACCOUNT
+═══════════════════════════════════════════════════════════════
+
+1. Register normally in the mobile app (or Supabase Auth dashboard)
+2. In Supabase SQL Editor, run:
+
+   UPDATE public.profiles
+   SET role = 'admin'
+   WHERE id = 'your-user-uuid-here';
+
+3. Sign into admin dashboard at http://localhost:5173
+
+
+═══════════════════════════════════════════════════════════════
+PROJECT STRUCTURE
+═══════════════════════════════════════════════════════════════
+
+  staffstream/
+  ├── mobile/                   Expo React Native app
+  │   ├── app/
+  │   │   ├── (auth)/           Login & Register screens
+  │   │   ├── (worker)/         Worker tabs (Feed, My Shifts, Earnings, Profile)
+  │   │   ├── (business)/       Business tabs (Dashboard, Post, Payments, Profile)
+  │   │   └── qr-scan.tsx       QR check-in/out modal
+  │   ├── lib/                  Supabase, Firebase, Maps, Payments
+  │   ├── hooks/                useShifts, etc.
+  │   ├── store/                Zustand auth store
+  │   └── types/                TypeScript types
+  │
+  ├── admin/                    React + Vite admin dashboard
+  │   └── src/pages/            Dashboard, Users, Shifts, Disputes, Analytics
+  │
+  ├── supabase/
+  │   ├── migrations/           SQL schema
+  │   └── functions/
+  │       ├── payment-webhook/  Maya + GCash payment handling
+  │       ├── matching-engine/  Geo-matching + push notifications
+  │       └── reliability-score/ Worker score recalculation
+  │
+  ├── .env.example              Root env template
+  └── how-to-run.example.txt    This file (safe to commit)
+
+
+═══════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+"PostGIS extension not found"
+  → In Supabase SQL Editor: CREATE EXTENSION IF NOT EXISTS postgis;
+
+"Database error saving new user"
+  → Re-run the handle_new_user trigger fix in the SQL Editor:
+    ALTER FUNCTION public.handle_new_user() SET search_path = public;
+
+"Location permission denied" on Android emulator
+  → Emulator → Extended Controls → Location → Set coordinates manually
+
+Expo Go not connecting
+  → Make sure your phone and computer are on the same WiFi network
+
+Edge Function 401 errors
+  → Re-run: supabase secrets set ... and redeploy the function
+
+Payment webhook not triggering
+  → Check Supabase Dashboard → Database → Webhooks for errors
+  → Verify the function URL format: https://<project>.supabase.co/functions/v1/<name>
+
+
+═══════════════════════════════════════════════════════════════
+SUPPORT
+═══════════════════════════════════════════════════════════════
+
+Supabase Docs:   https://supabase.com/docs
+Expo Docs:       https://docs.expo.dev
+Maya API Docs:   https://developers.maya.ph/docs
+PayMongo Docs:   https://developers.paymongo.com

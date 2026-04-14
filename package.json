@@ -1,0 +1,16 @@
+{
+  "name": "staffstream",
+  "private": true,
+  "workspaces": [
+    "mobile",
+    "admin"
+  ],
+  "scripts": {
+    "mobile": "yarn workspace mobile start",
+    "admin": "yarn workspace admin dev",
+    "admin:build": "yarn workspace admin build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

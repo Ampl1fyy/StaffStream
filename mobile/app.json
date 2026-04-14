@@ -1,0 +1,72 @@
+{
+  "expo": {
+    "name": "StaffStream",
+    "slug": "staffstream",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "staffstream",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4F46E5"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.staffstream.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "StaffStream needs your location to find nearby shifts.",
+        "NSLocationAlwaysUsageDescription": "StaffStream uses your location to match you with nearby shifts.",
+        "NSCameraUsageDescription": "StaffStream needs camera access to scan QR codes for shift check-in."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#4F46E5"
+      },
+      "package": "com.staffstream.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ],
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#4F46E5"
+        }
+      ],
+      "expo-location",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow StaffStream to access your camera for QR check-in."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#4F46E5"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
