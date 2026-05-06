@@ -12,5 +12,19 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "version": "1.0.0",
+  "description": "On-demand staffing platform for the Philippines. Businesses post short-term shifts; workers nearby apply, check in via QR code, and get paid instantly through GCash or Maya.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ampl1fyy/StaffStream.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ampl1fyy/StaffStream/issues"
+  },
+  "homepage": "https://github.com/Ampl1fyy/StaffStream#readme"
 }
