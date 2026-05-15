@@ -30,11 +30,18 @@ export default function RootLayout() {
 
   useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)';
-    if (!session && !inAuthGroup) {
-      router.replace('/(auth)/login');
-    } else if (session && inAuthGroup) {
-      router.replace('/');
-    }
+    const navigate = () => {
+      if (!session && !inAuthGroup) {
+        router.replace('/(auth)/login');
+      } else if (session && inAuthGroup) {
+        router.replace('/');
+      }
+    };
+
+    // Delay navigation until after the Root Layout has mounted to avoid
+    // "Attempted to navigate before mounting the Root Layout component" errors.
+    const t = setTimeout(navigate, 0);
+    return () => clearTimeout(t);
   }, [session, segments]);
 
   return (
